@@ -8,12 +8,12 @@
     <style>
         /* --- Color Palette & Variables --- */
         :root {
-            --primary-bg: #000000;
-            --card-bg: #6A6767;
+            --primary-bg: #FFFFFF;
+            --card-bg: #F0F0F0;
             --accent: #C72529;
             --accent-soft: #CC8386;
-            --text-main: #FFFFFF;
-            --text-sub: #E0E0E0; /* Slightly lighter than card-bg for readability */
+            --text-main: #000000;
+            --text-sub: #555555; 
             --font-en: 'Inter', sans-serif;
             --font-te: 'Noto Sans Telugu', sans-serif;
         }
@@ -58,7 +58,7 @@
 
         .tag {
             background-color: var(--accent);
-            color: var(--text-main);
+            color: #FFFFFF;
             font-size: 0.75rem;
             padding: 4px 8px;
             text-transform: uppercase;
@@ -68,42 +68,40 @@
             border-radius: 2px;
         }
 
+        /* --- 1. Header --- */
         header {
+            background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.95) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            position: relative;
-        
-            background: linear-gradient(
-                180deg,
-                rgba(20, 20, 20, 0.85),
-                rgba(0, 0, 0, 0.85)
-            );
-        
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
         }
-        
+
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 75px;
+            height: 90px;
         }
-        
+
         .logo img {
-            height: 55px;
+            height: 65px;
             width: auto;
-            transition: transform 0.3s ease;
+            object-fit: contain;
         }
         
-        .logo img:hover {
-            transform: scale(1.05);
+        /* Fallback styling if image doesn't load immediately */
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent);
         }
-        
+
         .nav-links {
             display: flex;
             gap: 25px;
@@ -164,6 +162,7 @@
             padding-left: 100%;
             font-family: var(--font-te);
             font-weight: 600;
+            color: #FFFFFF;
         }
 
         @keyframes ticker {
@@ -217,7 +216,7 @@
             left: 0;
             width: 100%;
             padding: 30px 20px 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(255,255,255,0.95), transparent);
         }
 
         .hero-title {
@@ -287,7 +286,7 @@
         }
 
         .card-title:hover {
-            color: var(--primary-bg);
+            color: var(--accent);
         }
 
         .card-excerpt {
@@ -306,7 +305,7 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 20px;
-            border-bottom: 1px solid rgba(106, 103, 103, 0.5);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .politics-item img {
@@ -330,7 +329,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .review-card img {
@@ -455,6 +454,7 @@
         .footer-col ul li {
             margin-bottom: 10px;
             color: var(--text-sub);
+            cursor: pointer;
         }
 
         .footer-col ul li:hover {
@@ -468,10 +468,15 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: var(--primary-bg);
-            border-top: 1px solid var(--card-bg);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
             z-index: 1000;
             padding: 10px 0;
+            /* Support for modern mobile screens (iPhone notch/home bar) */
+            padding-bottom: calc(10px + env(safe-area-inset-bottom)); 
         }
 
         .mobile-nav-links {
@@ -486,6 +491,7 @@
             align-items: center;
             font-size: 0.75rem;
             color: var(--text-sub);
+            font-weight: 600;
         }
 
         .mobile-nav-links a.active {
@@ -499,6 +505,9 @@
             .hero-section {
                 grid-template-columns: 1fr;
             }
+            .hero-side {
+                flex-direction: row; /* Side-by-side on tablet */
+            }
             .movies-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -508,30 +517,87 @@
             .nav-links, .header-icons {
                 display: none;
             }
+            .navbar {
+                justify-content: center; /* Center logo on mobile */
+                height: 70px;
+            }
+            .logo img {
+                height: 50px; /* Slightly smaller logo for mobile */
+            }
+            .hero-side {
+                flex-direction: column; /* Stack again on phones */
+            }
             .movies-grid, .reviews-grid, .footer-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             .mobile-bottom-nav {
                 display: block;
             }
             body {
-                padding-bottom: 60px; /* Space for bottom nav */
+                padding-bottom: 80px; /* Space for bottom nav */
             }
             .hero-card {
-                height: 300px;
+                height: 280px; /* Shorter hero image for better viewport fit */
             }
             .hero-side .hero-card {
                 height: 200px;
             }
+            
+            /* Typography Scaling for Mobile */
+            .hero-title {
+                font-size: 1.3rem;
+                line-height: 1.4;
+            }
+            .section-header {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+            .card-title {
+                font-size: 1.05rem;
+            }
+
+            /* Fix Politics layout for mobile */
+            .politics-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .politics-item img {
+                width: 100%;
+                height: 180px;
+                border-radius: 8px;
+            }
+
+            /* Ensure footer doesn't get hidden behind the sticky nav */
+            footer {
+                padding-bottom: 100px;
+            }
         }
+
+        /* --- Smooth Scroll Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-on-scroll {
+            opacity: 0;
+        }
+        .animate-on-scroll.is-visible {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header>
         <div class="container navbar">
             <a href="#" class="logo">
-                <img src="J Logo.png" alt="Janya Media Logo">
+                <img src="J Logo.png" alt="Janya Media" onerror="this.style.display='none'; this.parentNode.innerHTML='Janya Media';">
             </a>
             <ul class="nav-links">
                 <li><a href="#" class="active">Home</a></li>
@@ -544,12 +610,13 @@
                 <li><a href="#">Trending</a></li>
             </ul>
             <div class="header-icons">
-                <span>🔍</span>
-                <span>☰</span>
+                <span title="Search">🔍</span>
+                <span title="Menu">☰</span>
             </div>
         </div>
     </header>
 
+    <!-- Breaking News Ticker -->
     <div class="ticker-wrap">
         <div class="ticker-label">BREAKING</div>
         <div class="ticker-scroll">
@@ -558,11 +625,13 @@
     </div>
 
     <main class="container">
-        <div class="main-layout"> 
+        <!-- Main Content & Sidebar Layout -->
+        <div class="main-layout">
             
             <div class="main-content">
+                <!-- Hero Section -->
                 <section class="hero-section">
-                    <div class="hero-card">
+                    <div class="hero-card animate-on-scroll">
                         <img src="https://m.media-amazon.com/images/M/MV5BNzMxMDdiYzAtNGM0Ni00ZWQxLWI0ZTUtMzdkMjBkMzExYWZmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Featured News">
                         <div class="hero-overlay">
                             <span class="tag">Tollywood</span>
@@ -570,14 +639,14 @@
                         </div>
                     </div>
                     <div class="hero-side">
-                        <div class="hero-card">
+                        <div class="hero-card animate-on-scroll delay-100">
                             <img src="https://www.deccanchronicle.com/h-upload/2024/09/20/1843696-alluarjuninpushpatherule.webp" alt="Trending 1">
                             <div class="hero-overlay">
                                 <span class="tag">Trending</span>
                                 <h2 class="hero-title telugu-text">పుష్ప 2 లీక్స్: నెట్టింట వైరల్</h2>
                             </div>
                         </div>
-                        <div class="hero-card">
+                        <div class="hero-card animate-on-scroll delay-200">
                             <img src="https://img-mm.manoramaonline.com/content/dam/mm/mo/archive/web-stories/movies/images/2025/9/2/Misha-7.jpg" alt="Trending 2">
                             <div class="hero-overlay">
                                 <span class="tag">Gallery</span>
@@ -587,9 +656,10 @@
                     </div>
                 </section>
 
-                <h3 class="section-header telugu-text">సినిమా వార్తలు (Movies)</h3>
+                <!-- Movies Section -->
+                <h3 class="section-header telugu-text animate-on-scroll">సినిమా వార్తలు (Movies)</h3>
                 <section class="movies-grid">
-                    <div class="card">
+                    <div class="card animate-on-scroll">
                         <img src="https://images.filmibeat.com/fit-in/600x338/kn/img/2026/01/chiranjeevi-venkatesh-msvg-box-office-day-3-1-1768449954.jpg" alt="Movie">
                         <div class="card-content">
                             <span class="tag">Updates</span>
@@ -597,7 +667,7 @@
                             <p class="card-excerpt">Here is the list of top movies preparing for a massive festival release...</p>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card animate-on-scroll delay-100">
                         <img src="https://cdn.123telugu.com/content/wp-content/uploads/2026/02/Vishnu-Vinshayam.webp" alt="Movie">
                         <div class="card-content">
                             <span class="tag">Box Office</span>
@@ -605,7 +675,7 @@
                             <p class="card-excerpt">Detailed breakdown of the first weekend worldwide box office collections.</p>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card animate-on-scroll delay-200">
                         <img src="https://c.ndtvimg.com/2026-02/kcidrbmk_priyanka-chopra_625x300_27_February_26.jpg?im=FaceCrop,algorithm=dnn,width=1200,height=738" alt="Movie">
                         <div class="card-content">
                             <span class="tag">Gossip</span>
@@ -615,16 +685,17 @@
                     </div>
                 </section>
 
-                <h3 class="section-header telugu-text">రాజకీయాలు (Politics)</h3>
+                <!-- Politics Section -->
+                <h3 class="section-header telugu-text animate-on-scroll">రాజకీయాలు (Politics)</h3>
                 <section class="politics-list">
-                    <div class="politics-item">
+                    <div class="politics-item animate-on-scroll">
                         <img src="https://th-i.thgim.com/public/incoming/vv6b81/article68317226.ece/alternates/FREE_1200/vjkvg-cm%204.JPG" alt="Politics">
                         <div>
                             <h4 class="card-title telugu-text">అసెంబ్లీ సమావేశాలు: అధికార, విపక్షాల మధ్య వాడివేడి చర్చ</h4>
                             <p class="card-excerpt" style="color: var(--text-sub);">Key highlights from today's heated assembly session...</p>
                         </div>
                     </div>
-                    <div class="politics-item">
+                    <div class="politics-item animate-on-scroll delay-100">
                         <img src="https://fl-i.thgim.com/public/incoming/f6nst1/article70651255.ece/alternates/LANDSCAPE_660/dmk%20dmdk%20alliance%202026.jpg" alt="Politics">
                         <div>
                             <h4 class="card-title telugu-text">త్వరలో జాతీయ స్థాయి కీలక భేటీ: హాజరుకానున్న రాష్ట్ర నేతలు</h4>
@@ -633,16 +704,17 @@
                     </div>
                 </section>
 
-                <h3 class="section-header telugu-text">రివ్యూస్ (Reviews)</h3>
+                <!-- Reviews Section -->
+                <h3 class="section-header telugu-text animate-on-scroll">రివ్యూస్ (Reviews)</h3>
                 <section class="reviews-grid">
-                    <div class="review-card">
+                    <div class="review-card animate-on-scroll">
                         <img src="https://assets-in.bmscdn.com/discovery-catalog/events/et00383697-kvwfdjdtvp-landscape.jpg" alt="Review">
                         <div>
                             <h4 class="card-title telugu-text">యాక్షన్ ఎంటర్‌టైనర్: మూవీ రివ్యూ & రేటింగ్</h4>
                             <div class="rating">3.5</div>
                         </div>
                     </div>
-                    <div class="review-card">
+                    <div class="review-card animate-on-scroll delay-100">
                         <img src="https://cdn.sacnilk.com/image/news/1000024899.jpg" alt="Review">
                         <div>
                             <h4 class="card-title telugu-text">లవ్ స్టోరీ ఎమోషన్స్: పబ్లిక్ టాక్ ఎలా ఉందంటే?</h4>
@@ -651,17 +723,19 @@
                     </div>
                 </section>
 
-                <h3 class="section-header telugu-text">ఓటీటీ (OTT Updates)</h3>
+                <!-- OTT Updates Section -->
+                <h3 class="section-header telugu-text animate-on-scroll">ఓటీటీ (OTT Updates)</h3>
                 <section class="ott-scroll">
-                    <div class="ott-card"><img src="https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456" alt="OTT Poster"></div>
-                    <div class="ott-card"><img src="https://1000logos.net/wp-content/uploads/2022/10/Amazon-Prime-Video-Icon.png" alt="OTT Poster"></div>
-                    <div class="ott-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Aha_OTT_Logo.svg/500px-Aha_OTT_Logo.svg.png" alt="OTT Poster"></div>
-                    <div class="ott-card"><img src="https://www.livemint.com/lm-img/img/2025/02/14/optimize/Screenshot_2025-02-14_065533_1739496378365_1739496389150.png" alt="OTT Poster"></div>
-                    <div class="ott-card"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Zee5-official-logo.jpeg" alt="OTT Poster"></div>
+                    <div class="ott-card animate-on-scroll"><img src="https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456" alt="OTT Poster"></div>
+                    <div class="ott-card animate-on-scroll delay-100"><img src="https://1000logos.net/wp-content/uploads/2022/10/Amazon-Prime-Video-Icon.png" alt="OTT Poster"></div>
+                    <div class="ott-card animate-on-scroll delay-200"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Aha_OTT_Logo.svg/500px-Aha_OTT_Logo.svg.png" alt="OTT Poster"></div>
+                    <div class="ott-card animate-on-scroll delay-300"><img src="https://www.livemint.com/lm-img/img/2025/02/14/optimize/Screenshot_2025-02-14_065533_1739496378365_1739496389150.png" alt="OTT Poster"></div>
+                    <div class="ott-card animate-on-scroll delay-400"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Zee5-official-logo.jpeg" alt="OTT Poster"></div>
                 </section>
             </div>
 
-            <aside class="sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar animate-on-scroll delay-200">
                 <h3 class="section-header telugu-text" style="font-size: 1.2rem; border-color: var(--accent-soft);">ట్రెండింగ్ (Trending Now)</h3>
                 <ul class="trending-list">
                     <li class="telugu-text">బిగ్‌బాస్ హౌస్ లో షాకింగ్ ఎలిమినేషన్.. కన్నీరు పెట్టుకున్న కంటెస్టెంట్స్.</li>
@@ -675,6 +749,7 @@
         </div>
     </main>
 
+    <!-- Mobile Bottom Navigation -->
     <nav class="mobile-bottom-nav">
         <ul class="mobile-nav-links">
             <li><a href="#" class="active"><span style="font-size: 1.5rem;">🏠</span>Home</a></li>
@@ -684,13 +759,14 @@
         </ul>
     </nav>
 
+    <!-- Footer -->
     <footer>
         <div class="container footer-grid">
-            <div class="footer-col">
-                <img src="J Logo.png" alt="Janya Media Logo" style="height: 50px; margin-bottom: 20px;">
+            <div class="footer-col animate-on-scroll">
+                <img src="J Logo.png" alt="Janya Media" style="height: 80px; margin-bottom: 20px;" onerror="this.style.display='none'; this.parentNode.innerHTML='<h3 style=\'color: var(--accent);\'>Janya Media</h3>';">
                 <p style="color: var(--text-sub); font-size: 0.9rem;">Your premium destination for the latest Telugu entertainment news, political updates, and exclusive celebrity interviews.</p>
             </div>
-            <div class="footer-col">
+            <div class="footer-col animate-on-scroll delay-100">
                 <h4>Quick Links</h4>
                 <ul>
                     <li>Home</li>
@@ -699,7 +775,7 @@
                     <li>OTT Streaming</li>
                 </ul>
             </div>
-            <div class="footer-col">
+            <div class="footer-col animate-on-scroll delay-200">
                 <h4>Connect With Us</h4>
                 <ul>
                     <li>About Us</li>
@@ -711,5 +787,28 @@
         </div>
     </footer>
 
+    <!-- Intersection Observer Script for Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
